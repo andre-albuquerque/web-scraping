@@ -1,0 +1,2 @@
+web: <scraping()>
+clock: news_scraping.py
