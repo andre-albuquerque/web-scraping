@@ -6,8 +6,11 @@ from time import sleep
 import mysql.connector
 import dotenv
 import os
+from apscheduler.schedulers.blocking import BlockingScheduler
 
-dotenv.load_dotenv(dotenv.find_dotenv(), dotenv_path='./docker/dags/scripts')
+sched = BlockingScheduler()
+
+dotenv.load_dotenv(dotenv.find_dotenv())
 
 usuario = os.getenv("user")
 senha = os.getenv("passwd")
@@ -31,6 +34,7 @@ tabela_news = """CREATE TABLE IF NOT EXISTS news (titulo VARCHAR(255), subtitulo
 
 mycursor.execute(tabela_news)
 
+@sched.scheduled_job('interval', hours=3)
 def scraping():
     
     """Função para fazer scraping de notícias dos portais G1 e Google News salvando em banco de dados MySQL.
@@ -251,3 +255,5 @@ def scraping():
     sleep(1)
 
     print('Processo finalizado!')
+
+sched.start()
