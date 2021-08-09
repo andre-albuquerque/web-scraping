@@ -1,0 +1,1 @@
+worker: news_scraping.py

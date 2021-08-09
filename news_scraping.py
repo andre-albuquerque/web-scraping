@@ -1,14 +1,11 @@
 import requests
 from bs4 import BeautifulSoup
 from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
 from time import sleep
 import mysql.connector
 import dotenv
 import os
-from apscheduler.schedulers.blocking import BlockingScheduler
 
-sched = BlockingScheduler()
 
 dotenv.load_dotenv(dotenv.find_dotenv())
 
@@ -34,7 +31,6 @@ tabela_news = """CREATE TABLE IF NOT EXISTS news (titulo VARCHAR(255), subtitulo
 
 mycursor.execute(tabela_news)
 
-@sched.scheduled_job('interval', hours=3)
 def scraping():
     
     """Função para fazer scraping de notícias dos portais G1 e Google News salvando em banco de dados MySQL.
@@ -45,11 +41,17 @@ def scraping():
 
         
     # opções do método Selenium | --headless não abre nagevador
-    options = Options()
-    options.add_argument('--headless')
-    options.add_argument('windows size = 400,800')
 
-    driver = webdriver.Chrome(options=options)
+    chrome_options = webdriver.ChromeOptions()
+    chrome_options.add_argument("--headless")
+    chrome_options.add_argument("--disable-dev-shm-usage")
+    chrome_options.add_argument("--no-sandbox")
+
+
+
+    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")    
+    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
+    
     driver.get("https://g1.globo.com/")
     sleep(2)
 
@@ -256,4 +258,5 @@ def scraping():
 
     print('Processo finalizado!')
 
-sched.start()
+
+scraping()
