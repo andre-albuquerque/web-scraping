@@ -3,14 +3,17 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from time import sleep
 import mysql.connector
+from boto.s3.connection import S3Connection
+
+s3 = S3Connection(os.environ['host'], os.environ['user'], os.environ['password'])
 
 
 # Comandos para conectar criar o database e as tabelas no MySQL se não existir
 
 mydb = mysql.connector.connect(
-host= ENV['host'],
-user= ENV['user'],
-passwd= ENV['password'],
+host= os.environ.get('host'),
+user= os.environ.get('user'),
+passwd= os.environ.get('password'),
 database="noticias"
 )
 
