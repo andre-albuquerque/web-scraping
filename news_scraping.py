@@ -3,22 +3,20 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from time import sleep
 import mysql.connector
-import dotenv
+from boto.s3.connection import S3Connection
 import os
 
 
-dotenv.load_dotenv(dotenv.find_dotenv())
-
-usuario = os.getenv("user")
-senha = os.getenv("passwd")
-address = os.getenv("host")
+host = os.environ.get("host")
+user= os.environ.get("user")
+password = os.environ.get("password")
 
 # Comandos para conectar criar o database e as tabelas no MySQL se não existir
 
 mydb = mysql.connector.connect(
-host=address,
-user= usuario,
-passwd= senha,
+host= host,
+user= user,
+passwd= password,
 database="noticias"
 )
 
@@ -26,8 +24,13 @@ mycursor = mydb.cursor()
 
 mycursor.execute("CREATE DATABASE IF NOT EXISTS noticias")
 
+<<<<<<< HEAD
 tabela_news = """CREATE TABLE IF NOT EXISTS news (id INT PRIMARY KEY AUTO_INCREMENT, titulo VARCHAR(255), subtitulo VARCHAR(255), tempo VARCHAR(100), 
                 fonte VARCHAR(255), link VARCHAR(1000), img VARCHAR(500))"""
+=======
+tabela_news = """CREATE TABLE IF NOT EXISTS news (id INT PRIMARY KEY AUTO_INCREMENT, titulo VARCHAR(255), subtitulo VARCHAR(255), tempo VARCHAR(100),
+              fonte VARCHAR(255), link VARCHAR(1000), img VARCHAR(500))"""
+>>>>>>> e8a3f7d74c096f6bd85fdd7b9d50b0e531135058
 
 mycursor.execute(tabela_news)
 
