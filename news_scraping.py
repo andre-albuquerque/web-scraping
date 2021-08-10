@@ -4,6 +4,7 @@ from selenium import webdriver
 from time import sleep
 import mysql.connector
 from boto.s3.connection import S3Connection
+import os
 
 s3 = S3Connection(os.environ['host'], os.environ['user'], os.environ['password'])
 
