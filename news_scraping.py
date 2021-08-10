@@ -8,13 +8,16 @@ import os
 
 s3 = S3Connection(os.environ['host'], os.environ['user'], os.environ['password'])
 
+host = os.environ.get("host")
+user= os.environ.get("user")
+password = os.environ.get("password")
 
 # Comandos para conectar criar o database e as tabelas no MySQL se não existir
 
 mydb = mysql.connector.connect(
-host= os.environ.get('host'),
-user= os.environ.get('user'),
-passwd= os.environ.get('password'),
+host= host,
+user= user,
+passwd= password,
 database="noticias"
 )
 
