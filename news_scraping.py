@@ -3,22 +3,14 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from time import sleep
 import mysql.connector
-import dotenv
-import os
 
-
-dotenv.load_dotenv(dotenv.find_dotenv())
-
-usuario = os.getenv("user")
-senha = os.getenv("passwd")
-address = os.getenv("host")
 
 # Comandos para conectar criar o database e as tabelas no MySQL se não existir
 
 mydb = mysql.connector.connect(
-host=address,
-user= usuario,
-passwd= senha,
+host= host,
+user= user,
+passwd= password,
 database="noticias"
 )
 
