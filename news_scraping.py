@@ -8,9 +8,9 @@ import mysql.connector
 # Comandos para conectar criar o database e as tabelas no MySQL se não existir
 
 mydb = mysql.connector.connect(
-host= host,
-user= user,
-passwd= password,
+host= ENV['host'],
+user= ENV['user'],
+passwd= ENV['password'],
 database="noticias"
 )
 
