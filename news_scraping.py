@@ -98,6 +98,8 @@ def scraping():
             dados_noticias.append(tempo.text)
         except:
             dados_noticias.append("")
+
+        dados_noticias.append(fonte)
         
         dados_noticias.append(link['href'])
         
@@ -106,8 +108,6 @@ def scraping():
         except: 
             dados_noticias.append("")
         
-        dados_noticias.append(fonte)
-
         lista_noticias_g1.append(dados_noticias)
 
     sleep(1.5)
@@ -161,6 +161,8 @@ def scraping():
             except:
                 dados_noticias_1.append("")
 
+            dados_noticias_1.append(fonte)
+
             if len(link) > 140:
                 continue
             else:
@@ -168,8 +170,7 @@ def scraping():
 
             dados_noticias_1.append(img['src'])
 
-            dados_noticias_1.append(fonte)
-
+            
             lista_noticias_gnews.append(dados_noticias_1)
 
     # obtem todas as notícias do tipo 2
@@ -207,6 +208,8 @@ def scraping():
             except:
                 dados_noticias_2.append("")
 
+            dados_noticias_2.append(fonte)
+
             if len(link) > 140:
                 continue
             else:
@@ -214,8 +217,7 @@ def scraping():
 
             dados_noticias_2.append(img['src'])
 
-            dados_noticias_2.append(fonte)
-
+            
             lista_noticias_gnews.append(dados_noticias_2)
         
         
