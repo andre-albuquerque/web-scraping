@@ -3,7 +3,6 @@ from bs4 import BeautifulSoup
 from selenium import webdriver
 from time import sleep
 import mysql.connector
-from boto.s3.connection import S3Connection
 import os
 
 
