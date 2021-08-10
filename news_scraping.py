@@ -24,13 +24,8 @@ mycursor = mydb.cursor()
 
 mycursor.execute("CREATE DATABASE IF NOT EXISTS noticias")
 
-<<<<<<< HEAD
 tabela_news = """CREATE TABLE IF NOT EXISTS news (id INT PRIMARY KEY AUTO_INCREMENT, titulo VARCHAR(255), subtitulo VARCHAR(255), tempo VARCHAR(100), 
                 fonte VARCHAR(255), link VARCHAR(1000), img VARCHAR(500))"""
-=======
-tabela_news = """CREATE TABLE IF NOT EXISTS news (id INT PRIMARY KEY AUTO_INCREMENT, titulo VARCHAR(255), subtitulo VARCHAR(255), tempo VARCHAR(100),
-              fonte VARCHAR(255), link VARCHAR(1000), img VARCHAR(500))"""
->>>>>>> e8a3f7d74c096f6bd85fdd7b9d50b0e531135058
 
 mycursor.execute(tabela_news)
 
