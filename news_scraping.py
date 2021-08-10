@@ -26,8 +26,8 @@ mycursor = mydb.cursor()
 
 mycursor.execute("CREATE DATABASE IF NOT EXISTS noticias")
 
-tabela_news = """CREATE TABLE IF NOT EXISTS news (titulo VARCHAR(255), subtitulo VARCHAR(255), tempo VARCHAR(100), 
-                link VARCHAR(1000), img VARCHAR(500))"""
+tabela_news = """CREATE TABLE IF NOT EXISTS news (id INT PRIMARY KEY AUTO_INCREMENT, titulo VARCHAR(255), subtitulo VARCHAR(255), tempo VARCHAR(100), 
+                fonte VARCHAR(255), link VARCHAR(1000), img VARCHAR(500))"""
 
 mycursor.execute(tabela_news)
 
@@ -232,7 +232,7 @@ def scraping():
     mycursor.execute("TRUNCATE TABLE news") 
 
     # comando SQL para inserir os elementos das notícias nas tabelas
-    comando_sql_news = """INSERT INTO news (titulo, subtitulo, tempo, link, img, fonte)
+    comando_sql_news = """INSERT INTO news (titulo, subtitulo, tempo, fonte, link, img)
                             VALUES (%s, %s, %s, %s, %s, %s)"""
 
     mycursor = mydb.cursor()
