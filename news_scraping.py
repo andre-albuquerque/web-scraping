@@ -69,6 +69,8 @@ def scraping():
     driver.quit()
 
     print('Buscando notícias e salvando em lista...')
+    
+    lista_main = []
 
     # Busca todas as notícias na página principal
     noticias = site_g1.find_all('div', attrs={'class': "feed-post-body"})
@@ -237,19 +239,13 @@ def scraping():
 
     mycursor = mydb.cursor()
     
-    random.shuffle(lista_noticias_g1)
-    random.shuffle(lista_noticias_gnews)
+    lista_main.append(lista_noticias_g1)
+    lista_main.append(lista_noticias_gnews)
+    
+    random.shuffle(lista_main)
 
-    dados_g1  = lista_noticias_g1
-
-    dados_gnews = lista_noticias_gnews
-
-
-    mycursor.executemany(comando_sql_news, dados_g1)
-
-    mycursor.executemany(comando_sql_news, dados_gnews)
-
-
+    mycursor.executemany(comando_sql_news, lista_main)
+  
     mydb.commit()
 
     # fechando conexão com banco de dados
