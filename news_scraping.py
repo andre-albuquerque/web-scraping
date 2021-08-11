@@ -232,7 +232,7 @@ def scraping():
 
     # comando SQL para inserir os elementos das notícias nas tabelas
     comando_sql_news = """INSERT INTO news (titulo, subtitulo, tempo, fonte, link, img)
-                            VALUES (%s, %s, %s, %s, %s, %s)"""
+                            VALUES (%s, %s, %s, %s, %s, %s) ORDER BY RAND()"""
 
     mycursor = mydb.cursor()
 
