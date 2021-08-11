@@ -41,22 +41,14 @@ def scraping():
         
     # opções do método Selenium | --headless não abre nagevador
 
-    """     chrome_options = webdriver.ChromeOptions()
-    chrome_options.add_argument("--headless")
-    chrome_options.add_argument("--disable-dev-shm-usage")
-    chrome_options.add_argument("--no-sandbox") """
-
-
-#    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")    
-#    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
-
-
-    chrome_options = Options()
+    chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--no-sandbox")
-    chrome_options.add_argument("--disable-extensions")
-    driver = webdriver.Chrome(chrome_options=chrome_options)
+
+
+    chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")    
+    driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
 
     
     driver.get("https://g1.globo.com/")
@@ -73,12 +65,6 @@ def scraping():
     site_g1 = BeautifulSoup(driver.page_source, 'html.parser')
     driver.quit()
     print('Buscando notícias e salvando em lista...')
-<<<<<<< HEAD
-=======
-    
-    lista_main = []
-
->>>>>>> e6c91e9f2df267435227f01eb5807dfc399eb894
     # Busca todas as notícias na página principal
     noticias = site_g1.find_all('div', attrs={'class': "feed-post-body"})
     lista_noticias_g1 = []
@@ -190,7 +176,6 @@ def scraping():
     comando_sql_news = """INSERT INTO news (titulo, subtitulo, tempo, fonte, link, img)
                             VALUES (%s, %s, %s, %s, %s, %s)"""
     mycursor = mydb.cursor()
-<<<<<<< HEAD
     dados_g1  = lista_noticias_g1       
     dados_gnews = lista_noticias_gnews  
 
@@ -198,16 +183,6 @@ def scraping():
 
     dados_shuffle = random.sample(dados_total, len(dados_total))
     mycursor.executemany(comando_sql_news, dados_shuffle)
-=======
-    
-    lista_main.append(lista_noticias_g1)
-    lista_main.append(lista_noticias_gnews)
-    
-    random.shuffle(lista_main)
-
-    mycursor.executemany(comando_sql_news, lista_main)
-  
->>>>>>> e6c91e9f2df267435227f01eb5807dfc399eb894
     mydb.commit()
     # fechando conexão com banco de dados
     mydb.close()
