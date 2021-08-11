@@ -237,9 +237,9 @@ def scraping():
 
     mycursor = mydb.cursor()
 
-    dados_g1  = random.shuffle(lista_noticias_g1)
+    dados_g1  = lista_noticias_g1
 
-    dados_gnews = random.shuffle(lista_noticias_gnews)
+    dados_gnews = lista_noticias_gnews
 
 
     mycursor.executemany(comando_sql_news, dados_g1)
