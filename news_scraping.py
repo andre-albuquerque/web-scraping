@@ -236,6 +236,9 @@ def scraping():
                             VALUES (%s, %s, %s, %s, %s, %s)"""
 
     mycursor = mydb.cursor()
+    
+    random.shuffle(lista_noticias_g1)
+    random.shuffle(lista_noticias_gnews)
 
     dados_g1  = lista_noticias_g1
 
