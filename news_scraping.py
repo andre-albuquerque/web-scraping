@@ -7,13 +7,12 @@ import mysql.connector
 import os
 import random
 
-
+#variáveis de ambiente com os dados para se conectar ao banco de dados MySQL no AWS
 host = os.environ.get("host")
 user= os.environ.get("user")
 password = os.environ.get("password")
 
-# Comandos para conectar criar o database e as tabelas no MySQL se não existir
-
+#Comandos para conectar e criar o database e a tabela no MySQL se não existir
 mydb = mysql.connector.connect(
 host=host,
 user=user,
@@ -30,6 +29,7 @@ tabela_news = """CREATE TABLE IF NOT EXISTS news (id INT PRIMARY KEY AUTO_INCREM
 
 mycursor.execute(tabela_news)
 
+#função para realizar o scraping
 def scraping():
     
     """Função para fazer scraping de notícias dos portais G1 e Google News salvando em banco de dados MySQL.
@@ -40,19 +40,18 @@ def scraping():
 
         
     # opções do método Selenium | --headless não abre nagevador
-
     chrome_options = webdriver.ChromeOptions()
     chrome_options.add_argument("--headless")
     chrome_options.add_argument("--disable-dev-shm-usage")
     chrome_options.add_argument("--no-sandbox")
 
-
+    #variáveis de ambiente com os caminhos na plataforma no heroku para o google chrome e google driver
     chrome_options.binary_location = os.environ.get("GOOGLE_CHROME_BIN")    
     driver = webdriver.Chrome(executable_path=os.environ.get("CHROMEDRIVER_PATH"), chrome_options=chrome_options)
 
-    
+    #abrir o site g1.globo
     driver.get("https://g1.globo.com/")
-    sleep(2)
+    
     # botão 'veja mais' do site G1
     element = driver.find_element_by_xpath("//*[@id='feed-placeholder']/div/div/div[3]/a")
     # loop para dar scroll na página e clicar no botão 'veja mais'
@@ -68,6 +67,7 @@ def scraping():
     # Busca todas as notícias na página principal
     noticias = site_g1.find_all('div', attrs={'class': "feed-post-body"})
     lista_noticias_g1 = []
+
     # Loop para obter todos os elementos de cada notícia
     for noticia in noticias:    
         dados_noticias = []
@@ -99,7 +99,7 @@ def scraping():
             dados_noticias.append("")
         
         lista_noticias_g1.append(dados_noticias)
-    sleep(1.5)
+
     # scraping do google news
     print('Iniciando scraping do site Google News...')
     # acessa o site do Google News
@@ -109,6 +109,7 @@ def scraping():
     print('Buscando notícias e salvando em lista...')
     # obtem todas as noticias do tipo 1 
     noticias_1 = site_gnews.find_all('div', attrs={'class':'xrnccd F6Welf R7GTQ keNKEd j7vNaf'})
+
     lista_noticias_gnews = []
     # Loop para obter todos os elementos de cada notícia
     for noticia in noticias_1:
@@ -179,11 +180,16 @@ def scraping():
     dados_g1  = lista_noticias_g1       
     dados_gnews = lista_noticias_gnews  
 
+    #junta as listas de noticias
     dados_total = dados_g1 + dados_gnews
 
+    #embaralha a ordem para obter lista de notícias com fontes sortidas
     dados_shuffle = random.sample(dados_total, len(dados_total))
+
+    #executa o comando para o banco de dados
     mycursor.executemany(comando_sql_news, dados_shuffle)
     mydb.commit()
+
     # fechando conexão com banco de dados
     mydb.close()
 
