@@ -169,7 +169,7 @@ def scraping():
         
     # salvando no banco de dados
     print('Importando listas para o banco de dados...')
-    mycursor = mydb.cursor()
+
     # apagando conteúdo anteriores nas tabelas para evitar noticias antigas ou repetidas
     mycursor.execute("TRUNCATE TABLE news") 
     # comando SQL para inserir os elementos das notícias nas tabelas
