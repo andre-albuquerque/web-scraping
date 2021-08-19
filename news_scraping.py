@@ -11,18 +11,17 @@ import random
 host = os.environ.get("host")
 user= os.environ.get("user")
 password = os.environ.get("password")
+database = os.environ.get("database")
 
 #Comandos para conectar e criar o database e a tabela no MySQL se não existir
 mydb = mysql.connector.connect(
 host=host,
 user=user,
 passwd=password,
-database='noticias'
+database=database
 )
 
 mycursor = mydb.cursor()
-
-mycursor.execute("CREATE DATABASE IF NOT EXISTS noticias")
 
 tabela_news = """CREATE TABLE IF NOT EXISTS news (id INT PRIMARY KEY AUTO_INCREMENT, titulo VARCHAR(255), subtitulo VARCHAR(255), tempo VARCHAR(100), 
                 fonte VARCHAR(255), link VARCHAR(1000), img VARCHAR(500))"""
