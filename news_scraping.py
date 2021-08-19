@@ -7,28 +7,7 @@ import mysql.connector
 import os
 import random
 
-#variáveis de ambiente com os dados para se conectar ao banco de dados MySQL no AWS
-host = os.environ.get("host")
-user= os.environ.get("user")
-password = os.environ.get("password")
-database = os.environ.get("database")
-
-#Comandos para conectar e criar o database e a tabela no MySQL se não existir
-mydb = mysql.connector.connect(
-host=host,
-user=user,
-passwd=password,
-database=database
-)
-
-mycursor = mydb.cursor()
-
-tabela_news = """CREATE TABLE IF NOT EXISTS news (id INT PRIMARY KEY AUTO_INCREMENT, titulo VARCHAR(255), subtitulo VARCHAR(255), tempo VARCHAR(100), 
-                fonte VARCHAR(255), link VARCHAR(1000), img VARCHAR(500))"""
-
-mycursor.execute(tabela_news)
-
-    
+   
 
 print('Iniciando scraping do site G1. Isto pode demorar um pouco...')
 
@@ -165,7 +144,27 @@ for noticia in noticias_2:
 # salvando no banco de dados
 print('Importando listas para o banco de dados...')
 
-mycursor = mydb.cursor()    
+
+#variáveis de ambiente com os dados para se conectar ao banco de dados MySQL no AWS
+host = os.environ.get("host")
+user= os.environ.get("user")
+password = os.environ.get("password")
+database = os.environ.get("database")
+
+#Comandos para conectar e criar o database e a tabela no MySQL se não existir
+mydb = mysql.connector.connect(
+host=host,
+user=user,
+passwd=password,
+database=database
+)
+
+mycursor = mydb.cursor()
+
+tabela_news = """CREATE TABLE IF NOT EXISTS news (id INT PRIMARY KEY AUTO_INCREMENT, titulo VARCHAR(255), subtitulo VARCHAR(255), tempo VARCHAR(100), 
+                fonte VARCHAR(255), link VARCHAR(1000), img VARCHAR(500))"""
+
+mycursor.execute(tabela_news)
 
 # apagando conteúdos anteriores nas tabelas para evitar noticias antigas ou repetidas
 mycursor.execute("TRUNCATE TABLE news") 
@@ -190,5 +189,3 @@ mydb.commit()
 mydb.close()
 
 print('Processo finalizado!')
-
-
