@@ -7,10 +7,7 @@ import mysql.connector
 import os
 import random
 
-   
-
 print('Iniciando scraping do site G1. Isto pode demorar um pouco...')
-
 
 # opções do método Selenium | --headless não abre nagevador
 chrome_options = webdriver.ChromeOptions()
@@ -161,7 +158,7 @@ database=database
 
 mycursor = mydb.cursor()
 
-tabela_news = """CREATE TABLE IF NOT EXISTS news (id INT PRIMARY KEY AUTO_INCREMENT, titulo VARCHAR(255), subtitulo VARCHAR(255), tempo VARCHAR(100), 
+tabela_news = """CREATE TABLE IF NOT EXISTS news (id INT PRIMARY KEY AUTO_INCREMENT=1, titulo VARCHAR(255), subtitulo VARCHAR(255), tempo VARCHAR(100), 
                 fonte VARCHAR(255), link VARCHAR(1000), img VARCHAR(500))"""
 
 mycursor.execute(tabela_news)
