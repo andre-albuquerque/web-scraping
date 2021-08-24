@@ -161,7 +161,10 @@ mycursor = mydb.cursor()
 tabela_news = """CREATE TABLE IF NOT EXISTS news (id INT PRIMARY KEY AUTO_INCREMENT, titulo VARCHAR(255), subtitulo VARCHAR(255), tempo VARCHAR(100), 
                 fonte VARCHAR(255), link VARCHAR(1000), img VARCHAR(500))"""
 
+tabela_news_2 = """SET @@auto_increment_increment=1"""
+
 mycursor.execute(tabela_news)
+mycursor.execute(tabela_news_2)
 
 # apagando conteúdos anteriores nas tabelas para evitar noticias antigas ou repetidas
 mycursor.execute("TRUNCATE TABLE news") 
