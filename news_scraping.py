@@ -108,10 +108,9 @@ for noticia in noticias_1:
         dados_noticias_1.append(img['src'])
 
         lista_noticias_gnews.append(dados_noticias_1)
-
+        
 # obtem todas as notícias do tipo 2
 noticias_2 = site_gnews.find_all('div', attrs={'class':'NiLAwe y6IFtc R7GTQ keNKEd j7vNaf nID9nc'})
-
 # Loop para obter todos os elementos de cada notícia
 for noticia in noticias_2:
     dados_noticias_2 = []
