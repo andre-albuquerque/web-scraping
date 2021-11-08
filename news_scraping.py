@@ -44,7 +44,7 @@ for noticia in noticias:
 
     titulo = noticia.find('div', attrs={'class': 'feed-post-body-title gui-color-primary gui-color-hover'})   
     img = noticia.find('img', attrs={'class':'bstn-fd-picture-image'})
-    link = noticia.find('div', attrs={'class':'_b'}).find('a')
+    link = noticia.find('div', attrs={'class':'feed-post-body-title gui-color-primary gui-color-hover'}).find('a')
     resumo = noticia.find('div', attrs={'class':'feed-post-body-resumo'})
     tempo = noticia.find('span', attrs={'class':'feed-post-datetime'})
     fonte = "G1"
